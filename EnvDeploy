@@ -83,8 +83,11 @@ class ToolkitDownloader:
 
         try:
             dest = os.path.join(DownloadDir, url.split("/")[-1])
-            urllib.request.urlretrieve(url, dest, reporthook=reporthook)
-            print("Download destination: " + dest)
+            if os.path.isfile(dest):
+                print("Exists: " + dest)
+            else:
+                urllib.request.urlretrieve(url, dest, reporthook=reporthook)
+                print("Download destination: " + dest)
         except urllib.error.HTTPError:
             raise DownloadToolkitError("Failed to download toolkit: " + url)
 
