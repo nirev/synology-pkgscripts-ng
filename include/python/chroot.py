@@ -13,7 +13,7 @@ class Chroot:
         try:
             mount_point = os.path.join(self.chroot, 'proc')
             if not os.path.ismount(mount_point):
-                subprocess.check_call(['mount', '-t', 'proc', 'none', mount_point])
+                subprocess.check_call(['mount', '--bind', '/proc', mount_point])
         except subprocess.CalledProcessError:
             pass
 
